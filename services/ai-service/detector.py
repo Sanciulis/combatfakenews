@@ -15,8 +15,9 @@ class FakeNewsDetector:
     def __init__(self, api_key: str = None):
         """Initialize the detector with optional OpenAI API key"""
         self.api_key = api_key
+        self.openai_client = None
         if api_key:
-            openai.api_key = api_key
+            self.openai_client = openai.OpenAI(api_key=api_key)
         
         # Suspicious keywords that may indicate fake news
         self.suspicious_keywords = [
@@ -151,7 +152,7 @@ class FakeNewsDetector:
         Use generative AI to fact-check the content
         Returns (verification_text, score)
         """
-        if not self.api_key:
+        if not self.openai_client:
             return ('AI verification not configured', 0.5)
         
         try:
@@ -169,7 +170,7 @@ Provide:
 
 Keep response brief (max 150 words)."""
 
-            response = openai.chat.completions.create(
+            response = self.openai_client.chat.completions.create(
                 model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are a fact-checking assistant that analyzes news articles for credibility."},

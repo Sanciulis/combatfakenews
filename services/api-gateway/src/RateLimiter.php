@@ -3,13 +3,13 @@
 namespace Gateway;
 
 class RateLimiter {
-    private $dataDir = '/tmp/rate_limits';
+    private $dataDir = '/var/tmp/fakenews_rate_limits';
     private $maxRequests = 10;
     private $timeWindow = 60; // seconds
     
     public function __construct() {
         if (!is_dir($this->dataDir)) {
-            mkdir($this->dataDir, 0777, true);
+            mkdir($this->dataDir, 0755, true);
         }
     }
     
