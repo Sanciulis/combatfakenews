@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combat Fake News - Detector de Notícias Falsas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ Combat Fake News</h1>
+            <p class="subtitle">Sistema Inteligente de Detecção de Notícias Falsas</p>
+        </header>
+
+        <main>
+            <div class="analyzer-section">
+                <h2>Analisar Notícia</h2>
+                
+                <form id="analyzeForm">
+                    <div class="form-group">
+                        <label for="title">Título da Notícia (opcional)</label>
+                        <input type="text" id="title" placeholder="Digite o título da notícia...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="url">URL da Fonte (opcional)</label>
+                        <input type="url" id="url" placeholder="https://exemplo.com/noticia">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="text">Texto da Notícia *</label>
+                        <textarea id="text" rows="10" required 
+                                  placeholder="Cole ou digite o texto da notícia aqui..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="analyzeBtn">
+                        <span class="btn-text">Analisar Notícia</span>
+                        <span class="btn-loading" style="display: none;">Analisando...</span>
+                    </button>
+                </form>
+            </div>
+
+            <div id="resultSection" class="result-section" style="display: none;">
+                <h2>Resultado da Análise</h2>
+                
+                <div id="resultContent" class="result-content">
+                    <!-- Results will be inserted here -->
+                </div>
+            </div>
+
+            <div class="info-section">
+                <h3>Como funciona?</h3>
+                <div class="info-cards">
+                    <div class="info-card">
+                        <div class="info-icon">🤖</div>
+                        <h4>Inteligência Artificial</h4>
+                        <p>Usamos IA generativa para verificar fatos e analisar a credibilidade do conteúdo.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📊</div>
+                        <h4>Análise Multicriterial</h4>
+                        <p>Analisamos sentimento, credibilidade da fonte e sinais de alerta em múltiplas dimensões.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🔍</div>
+                        <h4>Verificação de Fontes</h4>
+                        <p>Comparamos com fontes confiáveis e identificamos padrões típicos de notícias falsas.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2024 Combat Fake News - Sistema de Detecção de Notícias Falsas</p>
+            <p class="tech-stack">Tecnologias: Python • PHP • JavaScript • IA Generativa • Microserviços</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
