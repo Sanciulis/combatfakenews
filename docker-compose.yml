@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Python AI/ML Service
+  ai-service:
+    build:
+      context: ./services/ai-service
+      dockerfile: Dockerfile
+    container_name: fakenews-ai-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=production
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    volumes:
+      - ./services/ai-service:/app
+      - ai-models:/app/models
+    networks:
+      - fakenews-network
+    restart: unless-stopped
+
+  # PHP API Gateway
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    container_name: fakenews-api-gateway
+    ports:
+      - "8080:80"
+    environment:
+      - AI_SERVICE_URL=http://ai-service:5000
+    volumes:
+      - ./services/api-gateway:/var/www/html
+    depends_on:
+      - ai-service
+    networks:
+      - fakenews-network
+    restart: unless-stopped
+
+  # Frontend Service
+  frontend:
+    build:
+      context: ./services/frontend
+      dockerfile: Dockerfile
+    container_name: fakenews-frontend
+    ports:
+      - "3000:80"
+    environment:
+      - API_GATEWAY_URL=http://api-gateway
+    volumes:
+      - ./services/frontend:/usr/share/nginx/html
+    depends_on:
+      - api-gateway
+    networks:
+      - fakenews-network
+    restart: unless-stopped
+
+networks:
+  fakenews-network:
+    driver: bridge
+
+volumes:
+  ai-models:
